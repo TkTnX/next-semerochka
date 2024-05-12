@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-bg: #fbf8ec;
+  --color-text: #414141;
+  --color-orange: #ff6633;
+}
+
+body {
+  @apply bg-color-bg  text-color-text;
+}
+
+.container {
+  @apply max-w-6xl px-2 mx-auto;
+}
+
+.promoBg {
+  background-color: #999;
+  background-image: url("./../components/Promo/images/bg.jpg");
+  width: 100%;
+  height: 200px;
+  background-size: cover;
+}
+@media (max-width: 768px) {
+  .promoBg {
+    background-position: right top;
+  }
+}

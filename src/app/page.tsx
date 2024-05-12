@@ -7,6 +7,14 @@ import Sales from "@/components/Sales/Sales";
 export default function Home() {
   return (
     <>
+      {
+      
+        // TODO: Оптимизировать запросы на сервер,
+        // TODO: Доделать первую страницу
+        // TODO: Подключить redux
+      
+      
+      }
       <Header />
       <Promo />
       <Sales />

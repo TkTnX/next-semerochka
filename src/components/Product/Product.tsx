@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import starImg from "./images/star.svg";
 import grayStarImg from "./images/grayStar.svg";
@@ -39,7 +39,7 @@ const Product: React.FC<ProductProps> = ({
   }
 
   return (
-    <div className="max-w-64 grid rounded shadow bg-white p-2 ">
+    <div className="max-w-64 grid justify-self-center md:justify-self-start  md:first:hidden lg:first:grid rounded shadow bg-white p-2 ">
       <div>
         <Image
           src={img}
@@ -58,15 +58,19 @@ const Product: React.FC<ProductProps> = ({
 
       <div className="flex items-center justify-between mt-2">
         <div>
-          <h6 className="font-bold text-lg">{convertPrice(price - 6)}</h6>
-          <p className="font-normal text-xs text-gray-400">С картой</p>
+          <h6 className="font-bold text-sm md:text-lg">
+            {convertPrice(price - 6)}
+          </h6>
+          <p className="font-normal  text-xs text-gray-400">С картой</p>
         </div>
         <div>
-          <h6 className="font-normal text-gray-700">{convertPrice(price)}</h6>
+          <h6 className="font-normal text-sm md:text-base text-gray-700">
+            {convertPrice(price)}
+          </h6>
           <p className="font-normal text-xs text-gray-400">Обычная</p>
         </div>
       </div>
-      <h4 className="mt-2 font-normal">{title}</h4>
+      <h4 className="mt-2 text-xs md:text-base font-normal">{title}</h4>
       <ul className="flex gap-1 my-2">{stars}</ul>
       <Button
         sx={{

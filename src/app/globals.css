@@ -29,3 +29,16 @@ body {
   }
 }
 
+footer {
+  background-color: #999;
+  background-image: url("./../components/Footer/images/bg.jpg");
+  width: 100%;
+  height: 126px;
+  background-position: center center; /* x y */
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.at-bottom {
+  transform: translateY(300%);
+}

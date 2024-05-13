@@ -4,12 +4,13 @@ import React from "react";
 import favoriteImg from "./images/favorite.svg";
 import orderImg from "./images/order.svg";
 import cartImg from "./images/cart.svg";
+import Link from "next/link";
 const Navbar: React.FC = () => {
   return (
     <div className="hidden md:block">
       <ul className="flex items-end  gap-6">
         <li>
-          <a
+          <Link
             className="grid hover:opacity-80 transition duration-150 gap-2"
             href="/favorite"
           >
@@ -23,10 +24,10 @@ const Navbar: React.FC = () => {
             <p className="text-xs text-center text-color-text font-normal">
               Избранное
             </p>
-          </a>
+          </Link>
         </li>
         <li>
-          <a
+          <Link
             className="grid hover:opacity-80 transition duration-150 gap-2"
             href="/orders"
           >
@@ -36,11 +37,11 @@ const Navbar: React.FC = () => {
             <p className=" text-xs text-center text-color-text font-normal">
               Заказы
             </p>
-          </a>
+          </Link>
         </li>
         <li>
           <Stack>
-            <a
+            <Link
               href="/cart"
               className=" hover:opacity-80 transition duration-150"
             >
@@ -56,7 +57,7 @@ const Navbar: React.FC = () => {
                   Корзина
                 </p>
               </Badge>
-            </a>
+            </Link>
           </Stack>
         </li>
       </ul>

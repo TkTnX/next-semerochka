@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Rubik } from "next/font/google";
 import "./globals.css";
+import { StoreProvider } from "@/redux/StoreProvider";
 
 const font = Rubik({ subsets: ["latin"] });
 
@@ -16,7 +17,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru">
-      <body className={font.className}>{children}</body>
+      <StoreProvider>
+        <body className={font.className}>{children}</body>
+      </StoreProvider>
     </html>
   );
 }

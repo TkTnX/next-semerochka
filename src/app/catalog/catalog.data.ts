@@ -1,0 +1,80 @@
+export const catalogData = [
+  {
+    id: 1,
+    img: "/catalog/01.jpg",
+    title: "Молоко, сыр, яйцо",
+    link: "/catalog/milk",
+  },
+  {
+    id: 2,
+    img: "/catalog/02.jpg",
+    title: "Хлеб",
+    link: "/catalog/bread",
+  },
+  {
+    id: 3,
+    img: "/catalog/03.jpg",
+    title: "Фрукты и овощи",
+    link: "/catalog/fruits",
+  },
+  {
+    id: 4,
+    img: "/catalog/04.jpg",
+    title: "Замороженные продукты",
+    link: "/catalog/frozen",
+  },
+  {
+    id: 5,
+    img: "/catalog/05.jpg",
+    title: "Напитки",
+    link: "/catalog/drinks",
+  },
+  {
+    id: 6,
+    img: "/catalog/06.jpg",
+    title: "Кондитерские изделия",
+    link: "/catalog/candy",
+  },
+  {
+    id: 7,
+    img: "/catalog/07.jpg",
+    title: "Чай, кофе",
+    link: "/catalog/tea",
+  },
+  {
+    id: 8,
+    img: "/catalog/08.jpg",
+    title: "Бакалея",
+    link: "/catalog/groceries",
+  },
+  {
+    id: 9,
+    img: "/catalog/09.jpg",
+    title: "Здоровое питание",
+    link: "/catalog/health",
+  },
+  {
+    id: 10,
+    img: "/catalog/10.jpg",
+    title: "Зоотовары",
+    link: "/catalog/animals",
+  },
+  {
+    id: 11,
+    img: "/catalog/11.jpg",
+    title: "Детское питание",
+    link: "/catalog/kids",
+  },
+  {
+    id: 12,
+    img: "/catalog/12.jpg",
+    title: "Мясо, птица, колбаса",
+    link: "/catalog/meat",
+  },
+  {
+    id: 13,
+    img: "/catalog/13.jpg",
+    title: "Непродовольственные товары",
+    link: "/catalog/nonFood",
+  },
+];

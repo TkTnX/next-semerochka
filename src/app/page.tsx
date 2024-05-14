@@ -20,9 +20,7 @@ export default function Home() {
 
   return (
     <>
-      {
-        // TODO: Доделать первую страницу
-      }
+
       <Promo />
       <Sales status={status} items={items} />
       <News status={status} items={items} />

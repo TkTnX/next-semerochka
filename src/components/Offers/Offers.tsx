@@ -3,7 +3,7 @@ import { offerData } from "./offer.data";
 import OfferCard from "./OfferCard";
 const Offers: React.FC = () => {
   return (
-    <div className="container">
+    <section className="container">
       <h2 className="font-bold text-2xl md:text-4xl mb-8 mt-24">
         Специальные предложения
       </h2>
@@ -12,7 +12,7 @@ const Offers: React.FC = () => {
           <OfferCard key={index} {...offer} />
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 

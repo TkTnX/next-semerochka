@@ -7,7 +7,7 @@ const ShopsMap: React.FC = () => {
   const [selectedAddress, setSelectedAddress] = useState(0);
 
   return (
-    <div className="container">
+    <section className="container">
       <h2 className="font-bold text-2xl md:text-4xl mb-8 mt-28 ">
         Наши магазины
       </h2>
@@ -44,7 +44,7 @@ const ShopsMap: React.FC = () => {
           />
         </YMaps>
       </div>
-    </div>
+    </section>
   );
 };
 

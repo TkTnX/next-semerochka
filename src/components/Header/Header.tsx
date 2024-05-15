@@ -19,9 +19,16 @@ import { useRouter } from "next/navigation";
 const Header = () => {
   const [value, setValue] = useState("");
   const navigate = useRouter();
-  const handleChangeValue = (e: any) => {
-    setValue(e.target.value);
-    console.log(value);
+  const handleChangeValue = (e: any) => setValue(e.target.value);
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    navigate.push(value);
+    catalogData.map((item) => {
+      if (item.title.includes(value)) {
+        navigate.push(item.link);
+      }
+    });
   };
 
   return (
@@ -67,10 +74,14 @@ const Header = () => {
               <Menu />
               <Typography className="p-2 hidden lg:block">Каталог</Typography>
             </button>
-            <form className="border border-color-green rounded  h-full flex items-center ">
+            <form
+              onSubmit={(e) => handleSubmit(e)}
+              className="border border-color-green rounded  flex items-center "
+            >
               <Autocomplete
                 id="country-select-demo"
-                sx={{ width: 300, pl: "20px" }}
+                sx={{ width: 280, pl: "20px" }}
+                className=" w-36 sm:w-72"
                 options={catalogData}
                 autoHighlight
                 getOptionLabel={(option) => option.title}
@@ -84,22 +95,27 @@ const Header = () => {
                   </Box>
                 )}
                 renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    value={value}
-                    variant="standard"
-                    onChange={(e) => handleChangeValue(e)}
-                    sx={{ border: "none" }}
-                    placeholder="Поиск"
-                    inputProps={{
-                      ...params.inputProps,
-                      autoComplete: "new-password", // disable autocomplete and autofill
-                    }}
-                  />
+                  <>
+                    <TextField
+                      {...params}
+                      value={value}
+                      variant="outlined"
+                      className="outline-none border-none"
+                      onChange={(e) => handleChangeValue(e)}
+                      onBlur={(e) => handleChangeValue(e)}
+                      placeholder="Поиск"
+                      inputProps={{
+                        ...params.inputProps,
+                        style: { border: "none" },
+                        autoComplete: "off", // disable autocomplete and autofill
+                        className: "h-0 border-none outline-none",
+                      }}
+                    />
+                  </>
                 )}
               />
               <div className="pr-2">
-                <button className=" justify-self-center w-6">
+                <button className=" justify-self-center w-6  ">
                   <Image src={searchImg} width={24} height={24} alt="search" />
                 </button>
               </div>

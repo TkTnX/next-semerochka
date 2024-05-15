@@ -10,7 +10,9 @@ export const metadata: Metadata = {
 };
 
 const CatalogPage = () => {
+  
   return (
+    
     <section className="container mt-7">
       <Breadcrumbs
         sx={{ fontSize: "12px" }}

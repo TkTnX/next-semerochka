@@ -18,16 +18,16 @@ export default function Home() {
     dispatch(fetchProducts());
   }, []);
 
+
   return (
     <>
+        <Promo />
+        <Sales status={status} items={items} />
+        <News status={status} items={items} />
+        <BoughtBefore status={status} items={items} />
+        <Offers />
 
-      <Promo />
-      <Sales status={status} items={items} />
-      <News status={status} items={items} />
-      <BoughtBefore status={status} items={items} />
-      <Offers />
-
-      <ShopsMap />
+        <ShopsMap />
     </>
   );
 }

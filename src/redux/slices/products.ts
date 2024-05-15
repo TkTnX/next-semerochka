@@ -34,6 +34,7 @@ const productsReducer = createSlice({
   initialState,
   reducers: {},
   extraReducers(builder) {
+    // Все продукты
     builder.addCase(fetchProducts.pending, (state) => {
       (state.products.items = []), (state.products.status = "loading");
     });

@@ -18,16 +18,16 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html lang="ru">
       <StoreProvider>
-        <body className={font.className}>
-
-          <Header />
-          {children}
-          <MobileMenu />
-          <Footer />
-        </body>
+          <body className={font.className}>
+            <Header />
+            {children}
+            <MobileMenu />
+            <Footer />
+          </body>
       </StoreProvider>
     </html>
   );

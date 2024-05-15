@@ -12,6 +12,7 @@ export type ProductProps = {
   discount?: number;
   price: number;
   rating: number;
+  category?: string
 };
 
 const Product: React.FC<ProductProps> = ({

@@ -5,6 +5,7 @@ import { StoreProvider } from "@/redux/StoreProvider";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
 import MobileMenu from "@/components/MobileMenu/MobileMenu";
+import CatalogMenu from "@/components/CatalogMenu/CatalogMenu";
 
 const font = Rubik({ subsets: ["latin"] });
 
@@ -18,16 +19,17 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   return (
     <html lang="ru">
       <StoreProvider>
-          <body className={font.className}>
-            <Header />
-            {children}
-            <MobileMenu />
-            <Footer />
-          </body>
+        <body className={font.className}>
+          <Header />
+          
+
+          <main>{children}</main>
+          <MobileMenu />
+          <Footer />
+        </body>
       </StoreProvider>
     </html>
   );

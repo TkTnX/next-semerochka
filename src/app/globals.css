@@ -8,8 +8,31 @@
   --color-orange: #ff6633;
 }
 
+* {
+  /* outline: 4px solid black; */
+}
+
 body {
   @apply bg-color-bg  text-color-text;
+}
+
+html,
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex-grow: 1;
+}
+
+main .catalogMenu {
+  background-color: white !important;
+}
+
+footer {
+  margin-top: 100%;
 }
 
 .container {
@@ -18,7 +41,7 @@ body {
 
 .promoBg {
   background-color: #999;
-  background-image: url("./../components/Promo/images/bg.jpg");
+  background-image: url("./../components/Promo/images/bg.webp");
   width: 100%;
   height: 200px;
   background-size: cover;
@@ -143,4 +166,50 @@ li:nth-child(10) {
 
 .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
   border: none;
+}
+
+@media (max-width: 520px) {
+  .productsSkeleton {
+    max-width: 200px;
+  }
+}
+
+@media (max-width: 420px) {
+  .productsSkeleton {
+    max-width: 100%;
+  }
+}
+
+
+.catalogMenuItem:nth-child(12) {
+  grid-row: 3;
+  grid-column: 4;
+  
+}
+.catalogMenuItem:nth-child(11) {
+  grid-row: 3;
+  grid-column: 2;
+  
+}
+.catalogMenuItem:last-child {
+  grid-row: 3;
+  
+}
+
+@media (max-width: 1024px) {
+    .catalogMenuItem:nth-child(12) {
+  grid-row: 6;
+  grid-column: unset;
+  
+}
+.catalogMenuItem:nth-child(11) {
+  grid-row: unset;
+  grid-column: unset;
+  
+}
+.catalogMenuItem:last-child {
+  grid-row: 3;
+  
+}
+
 }

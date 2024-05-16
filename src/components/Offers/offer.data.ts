@@ -1,11 +1,11 @@
 export const offerData = [
   {
-    img: "/offers/01.jpg",
+    img: "/offers/01.webp",
     title: "Оформите карту «Северяночка»",
     text: "И получайте бонусы при покупке в магазинах и на сайте",
   },
   {
-    img: "/offers/02.jpg",
+    img: "/offers/02.webp",
     title: "Покупайте акционные товары",
     text: "И получайте вдвое больше бонусов",
   },

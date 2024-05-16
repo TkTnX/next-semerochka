@@ -50,7 +50,7 @@ const CategoryItems: React.FC = () => {
       });
     } catch (error) {
       console.log(error);
-      alert("Не удалось найти категорию!");
+      alert("Не удалось загрузить продукты!");
       router.push("/catalog");
     }
   }, [toPrice, fromPrice]);
@@ -90,6 +90,8 @@ const CategoryItems: React.FC = () => {
     }
   }
 
+  console.log(data);
+
   const theme = createTheme({
     // @ts-ignore
     palette: {
@@ -119,63 +121,85 @@ const CategoryItems: React.FC = () => {
             Каталог
           </Link>
           <Typography fontSize={12} color="#8F8F8F">
-            {title}
+            {isLoading ? <Skeleton width={100} /> : title}
           </Typography>
         </Breadcrumbs>
-        <h1 className="font-bold text-4xl sm:text-5xl mb-16">{title}</h1>
-        <div className=" lg:flex justify-between gap-10">
-          <button
-            onClick={() => setOpenFilter(!openFilter)}
-            className="block mb-8 lg:hidden text-white rounded py-1 px-4 bg-color-green"
-          >
-            Фильтр
-          </button>
-          <div
-            ref={filterRef}
-            className={`fixed left-0 top-0 bottom-0 bg-white z-20  p-5 pr-7 pt-20 ${
-              openFilter ? "translate-x-0" : "-translate-x-full"
-            } transition duration-150`}
-          >
+        <h1 className="font-bold text-4xl sm:text-5xl mb-16">
+          {isLoading ? (
+            <div className="w-full sm:max-w-96">
+              <Skeleton height={80} />
+            </div>
+          ) : (
+            title
+          )}
+        </h1>
+        {!isLoading && data.length === 0 ? (
+          <h1 className=" font-bold text-2xl text-center">
+            К сожалению, <br /> в магазине сейчас нет товаров из данной
+            категории
+          </h1>
+        ) : (
+          <div className=" lg:flex justify-between gap-10">
             <button
-              onClick={() => setOpenFilter(false)}
-              className="absolute left-3 top-3"
+              onClick={() => setOpenFilter(!openFilter)}
+              className="block mb-8 lg:hidden text-white rounded py-1 px-4 bg-color-green"
             >
-              <CircleX />
+              Фильтр
             </button>
-            {
+            <div
+              ref={filterRef}
+              className={`fixed left-0 top-0 bottom-0 bg-white z-20  p-5 pr-7 pt-20 ${
+                openFilter ? "translate-x-0" : "-translate-x-full"
+              } transition duration-150`}
+            >
+              <button
+                onClick={() => setOpenFilter(false)}
+                className="absolute left-3 top-3"
+              >
+                <CircleX />
+              </button>
+              {
+                <CategoryItemsFilter
+                  setOpenFilter={setOpenFilter}
+                  setFromPrice={setFromPrice}
+                  setToPrice={setToPrice}
+                  minPrice={minPrice}
+                  maxPrice={maxPrice}
+                  isMobile={true}
+                />
+              }
+            </div>
+            {isLoading ? (
+              <div className="hidden lg:block -mt-20">
+                <Skeleton width={246} height={400} />
+              </div>
+            ) : (
               <CategoryItemsFilter
-                setOpenFilter={setOpenFilter}
                 setFromPrice={setFromPrice}
                 setToPrice={setToPrice}
                 minPrice={minPrice}
                 maxPrice={maxPrice}
-                isMobile={true}
+                isMobile={false}
               />
-            }
+            )}
+            <ul className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-10">
+              {isLoading
+                ? [...new Array(4)].map((_, index) => (
+                    <Skeleton
+                      key={index}
+                      height={349}
+                      width={253}
+                      sx={{ justifySelf: "center" }}
+                      variant="rectangular"
+                      className="productsSkeleton"
+                    />
+                  ))
+                : data.map((product) => {
+                    return <Product key={product.id} {...product} />;
+                  })}
+            </ul>
           </div>
-          <CategoryItemsFilter
-            setFromPrice={setFromPrice}
-            setToPrice={setToPrice}
-            minPrice={minPrice}
-            maxPrice={maxPrice}
-            isMobile={false}
-          />
-          <ul className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-10">
-            {isLoading
-              ? [...new Array(4)].map((_, index) => (
-                  <Skeleton
-                    key={index}
-                    height={349}
-                    variant="rectangular"
-                    sx={{ width: "100%" }}
-                    className="w-full"
-                  />
-                ))
-              : data.map((product) => {
-                  return <Product key={product.id} {...product} />;
-                })}
-          </ul>
-        </div>
+        )}
       </div>
     </ThemeProvider>
   );

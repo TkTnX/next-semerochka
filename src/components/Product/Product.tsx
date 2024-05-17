@@ -4,6 +4,7 @@ import starImg from "./images/star.svg";
 import grayStarImg from "./images/grayStar.svg";
 import { Button } from "@mui/material";
 import { convertPrice } from "@/utils/convert-price";
+import Link from "next/link";
 
 export type ProductProps = {
   id?: number;
@@ -12,15 +13,17 @@ export type ProductProps = {
   discount?: number;
   price: number;
   rating: number;
-  category?: string
+  category?: string;
 };
 
 const Product: React.FC<ProductProps> = ({
   title,
+  id,
   img,
   discount,
   price,
   rating,
+  category,
 }) => {
   const stars = [];
   for (let i = 0; i < 5; i++) {
@@ -42,19 +45,21 @@ const Product: React.FC<ProductProps> = ({
   return (
     <div className="max-w-64 grid justify-self-center md:justify-self-start  md:first:hidden lg:first:grid rounded shadow bg-white p-2 ">
       <div>
-        <Image
-          src={img}
-          width={272}
-          className="relative"
-          priority
-          height={160}
-          alt={title}
-        />
-        {discount && (
-          <p className="text-white bg-color-orange py-1 px-2 max-w-max rounded">
-            -{discount}%
-          </p>
-        )}
+        <Link href={`/catalog/${category}/${id}`}>
+          <Image
+            src={img}
+            width={272}
+            className="relative"
+            priority
+            height={160}
+            alt={title}
+          />
+          {discount && (
+            <p className="text-white bg-color-orange py-1 px-2 max-w-max rounded">
+              -{discount}%
+            </p>
+          )}
+        </Link>
       </div>
 
       <div className="flex items-center justify-between mt-2">

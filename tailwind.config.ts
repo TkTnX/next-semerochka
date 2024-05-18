@@ -18,6 +18,10 @@ const config: Config = {
         "color-text": "#414141",
         "color-orange": "#ff6633",
         "color-green": "#70c05b",
+        "color-disabled": "#fcd5ba",
+      },
+      fontSize: {
+        "verry-sm": "10px",
       },
     },
   },

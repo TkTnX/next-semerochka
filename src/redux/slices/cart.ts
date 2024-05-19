@@ -22,17 +22,22 @@ const cartReducer = createSlice({
       );
       if (!findItem) {
         state.items.push({ ...action.payload, count: 1 });
+      } else {
+        findItem.count += 1;
       }
+      state.totalPrice = state.items.reduce((acc, item) => {
+        return acc + item.price * item.count;
+      }, 0);
     },
     plusItem: (state, action) => {
       const findItem = state.items.find((item) => item.id === action.payload);
 
       if (findItem) {
         findItem.count = findItem.count + 1;
-        state.totalPrice = state.items.reduce((acc, item) => {
-          return (acc + item.price) * item.count;
-        }, 0);
       }
+      state.totalPrice = state.items.reduce((acc, item) => {
+        return (acc + item.price) * item.count;
+      }, 0);
     },
     minusItem: (state, action) => {
       const findItem = state.items.find((item) => item.id === action.payload);
@@ -44,11 +49,12 @@ const cartReducer = createSlice({
               (item) => item.id !== findItem.id
             ));
         } else {
-          findItem.count = findItem.count - 1;
-          state.totalPrice = state.items.reduce((acc, item) => {
-            return item.price - acc;
-          }, 0);
+          findItem.count -= 1;
         }
+
+        state.totalPrice = state.items.reduce((acc, item) => {
+          return (item.price + acc) * item.count;
+        }, 0);
       }
     },
   },

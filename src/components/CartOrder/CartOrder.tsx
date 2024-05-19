@@ -2,7 +2,7 @@ import { cartItemsSelector } from "@/redux/slices/cart";
 import { RootState } from "@/redux/store";
 import { convertPrice } from "@/utils/convert-price";
 import { Divider, FormControlLabel, Switch, styled } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 const IOSSwitch = styled((props) => (
@@ -59,6 +59,8 @@ const IOSSwitch = styled((props) => (
 const CartOrder: React.FC = () => {
   const cartItems = useSelector(cartItemsSelector);
   const totalPrice = useSelector((state: RootState) => state.cart.totalPrice);
+
+
 
   return (
     <div className="w-full sm:w-72">

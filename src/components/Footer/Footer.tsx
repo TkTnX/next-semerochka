@@ -10,6 +10,7 @@ import vkImg from "./images/social/vkontakte.svg";
 
 import Image from "next/image";
 import { Phone } from "lucide-react";
+import Link from "next/link";
 
 const Footer: React.FC = () => {
   return (
@@ -24,9 +25,9 @@ const Footer: React.FC = () => {
           <nav>
             <ul className="flex justify-center md:justify-start items-center gap-x-10 gap-y-2 flex-wrap">
               <li>
-                <a href="#!" className=" text-xs font-normal hover:opacity-80 ">
+                <Link href="/about" className=" text-xs font-normal hover:opacity-80 ">
                   О компании
-                </a>
+                </Link>
               </li>
               <li>
                 <a href="#!" className=" text-xs font-normal hover:opacity-80 ">

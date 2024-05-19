@@ -5,6 +5,8 @@ import grayStarImg from "./images/grayStar.svg";
 import { Button } from "@mui/material";
 import { convertPrice } from "@/utils/convert-price";
 import Link from "next/link";
+import { useDispatch } from "react-redux";
+import { addToCart } from "@/redux/slices/cart";
 
 export type ProductProps = {
   id?: number;
@@ -14,18 +16,12 @@ export type ProductProps = {
   price: number;
   rating: number;
   category?: string;
-  count?: number;
+  count: number;
 };
 
-const Product: React.FC<ProductProps> = ({
-  title,
-  id,
-  img,
-  discount,
-  price,
-  rating,
-  category,
-}) => {
+const Product: React.FC<ProductProps> = (props) => {
+  const {title, id, img, discount, price, rating, category} = props
+  const dispatch = useDispatch()
   const stars = [];
   for (let i = 0; i < 5; i++) {
     if (i < rating) {
@@ -91,6 +87,7 @@ const Product: React.FC<ProductProps> = ({
           },
         }}
         variant="outlined"
+        onClick={() => dispatch(addToCart(props))}
       >
         В корзину
       </Button>

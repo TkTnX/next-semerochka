@@ -19,12 +19,7 @@ const cartPage = () => {
           Корзина
         </Typography>
       </Breadcrumbs>
-      <div className="relative max-w-max mt-6">
-        <h1 className="font-bold text-6xl">Корзина</h1>
-        <p className="bg-color-orange text-white py-1 px-2 max-w-max rounded absolute -right-9 top-0">
-          3
-        </p>
-      </div>
+
       <Cart />
     </div>
   );

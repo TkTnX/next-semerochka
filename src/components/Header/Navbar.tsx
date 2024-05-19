@@ -1,11 +1,15 @@
-import { Badge, Box, Stack } from "@mui/material";
+"use client";
+import { Badge, Stack } from "@mui/material";
 import Image from "next/image";
 import React from "react";
 import favoriteImg from "./images/favorite.svg";
 import orderImg from "./images/order.svg";
 import cartImg from "./images/cart.svg";
 import Link from "next/link";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 const Navbar: React.FC = () => {
+  const cartItems = useSelector((state: RootState) => state.cart.items);
   return (
     <div className="hidden md:block">
       <ul className="flex items-end  gap-6">
@@ -47,7 +51,7 @@ const Navbar: React.FC = () => {
             >
               <Badge
                 sx={{ display: "grid", gap: "8px" }}
-                badgeContent={1}
+                badgeContent={cartItems.length}
                 color="success"
               >
                 <div className="justify-self-center">

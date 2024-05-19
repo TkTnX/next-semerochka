@@ -19,6 +19,7 @@ import Sales from "../Sales/Sales";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts, productsSelector } from "@/redux/slices/products";
 import { AppDispatch } from "@/redux/store";
+import { addToCart } from "@/redux/slices/cart";
 
 const FullProduct: React.FC = () => {
   const { items, status } = useSelector(productsSelector);
@@ -117,7 +118,10 @@ const FullProduct: React.FC = () => {
               {isLoading ? <Skeleton /> : (data[0].price * 0.1).toFixed(0)}{" "}
               бонуса(ов)
             </p>
-            <button className="mt-4 text-white hover:opacity-80 active:scale-90 transition duration-150 rounded bg-color-orange text-2xl text-center w-full py-4">
+            <button
+              onClick={() => dispatch(addToCart(data[0]))}
+              className="mt-4 text-white hover:opacity-80 active:scale-90 transition duration-150 rounded bg-color-orange text-2xl text-center w-full py-4"
+            >
               В корзину
             </button>
           </div>

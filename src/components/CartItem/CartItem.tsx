@@ -1,9 +1,22 @@
+"use client";
 import React from "react";
 import { ProductProps } from "../Product/Product";
 import Image from "next/image";
 import { convertPrice } from "@/utils/convert-price";
+import { minusItem, plusItem } from "@/redux/slices/cart";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/redux/store";
 
-const CartItem: React.FC<ProductProps> = ({ img, title, price, discount }) => {
+const CartItem: React.FC<ProductProps> = ({
+  id,
+  img,
+  title,
+  price,
+  discount,
+  count,
+}) => {
+  const dispatch: AppDispatch = useDispatch();
+
   return (
     <li className="sm:flex items-start justify-between gap-5 bg-white p-2 w-full">
       <div className="flex items-center gap-2">
@@ -33,9 +46,13 @@ const CartItem: React.FC<ProductProps> = ({ img, title, price, discount }) => {
       </div>
       <div className="flex sm:block md:flex max-w-max gap-6">
         <div className="flex items-center gap-3 bg-color-green rounded p-2 text-white ">
-          <button className=" text-xl">-</button>
-          <p className="text-xl">2</p>
-          <button className=" text-xl">+</button>
+          <button onClick={() => dispatch(minusItem(id))} className=" text-xl">
+            -
+          </button>
+          <p className="text-xl">{count}</p>
+          <button onClick={() => dispatch(plusItem(id))} className=" text-xl">
+            +
+          </button>
         </div>
         <div>
           {discount ? (

@@ -4,15 +4,16 @@ import React, { useState } from "react";
 import { Dropdown } from "@mui/base/Dropdown";
 import { Menu } from "@mui/base/Menu";
 import { MenuButton } from "@mui/base/MenuButton";
+import Login from "../Login/Login";
 const UserInfo: React.FC = () => {
   const [openMenu, setOpenMenu] = useState(false);
+
   return (
     <>
       <Dropdown>
         <MenuButton
           className="hidden md:flex items-center gap-2 hover:opacity-80 transition duration-100"
           // @ts-ignore
-          onClick={() => setOpenMenu(!openMenu)}
         >
           <Avatar>Г</Avatar>
           <Typography
@@ -33,11 +34,14 @@ const UserInfo: React.FC = () => {
           />
         </MenuButton>
         <Menu className="bg-white mt-5 hidden md:block  ">
-          <MenuItem>Войти в аккаунт</MenuItem>
+          <MenuItem onClick={() => setOpenMenu(!openMenu)}>
+            Войти в аккаунт
+          </MenuItem>
           <MenuItem>Профиль</MenuItem>
           <MenuItem>Выйти из аккаунта</MenuItem>
         </Menu>
       </Dropdown>
+      {openMenu && <Login openMenu={openMenu} setOpenMenu={setOpenMenu} />}
     </>
   );
 };

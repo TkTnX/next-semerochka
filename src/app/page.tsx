@@ -15,7 +15,12 @@ export default function Home() {
   const { items, status } = useSelector(productsSelector);
   const dispatch: AppDispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchProducts());
+    try {
+      dispatch(fetchProducts());
+    } catch (error) {
+      console.log(error);
+      alert("Не удалось получить данные!");
+    }
   }, []);
 
   return (

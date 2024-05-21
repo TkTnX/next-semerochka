@@ -9,7 +9,7 @@ interface initialStateType {
 
 const initialState: initialStateType = {
   items: [],
-  totalPrice: 0,
+  totalPrice: 11111,
 };
 
 const cartReducer = createSlice({

@@ -32,7 +32,7 @@ const UserInfo: React.FC = () => {
             stroke="black"
           />
         </MenuButton>
-        <Menu className="bg-white mt-5 hidden md:block ">
+        <Menu className="bg-white mt-5 hidden md:block  ">
           <MenuItem>Войти в аккаунт</MenuItem>
           <MenuItem>Профиль</MenuItem>
           <MenuItem>Выйти из аккаунта</MenuItem>

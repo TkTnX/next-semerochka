@@ -3,6 +3,7 @@ import { cartItemsSelector } from "@/redux/slices/cart";
 import { RootState } from "@/redux/store";
 import { convertPrice } from "@/utils/convert-price";
 import { Divider, FormControlLabel, Switch, styled } from "@mui/material";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
@@ -57,7 +58,10 @@ const IOSSwitch = styled((props) => (
   },
 }));
 
-const CartOrder: React.FC = () => {
+const CartOrder: React.FC<{
+  setIsDelivery: (boolean: boolean) => void;
+  isDelivery: boolean;
+}> = ({ setIsDelivery, isDelivery }) => {
   const cartItems = useSelector(cartItemsSelector);
   const totalPrice = useSelector((state: RootState) => state.cart.totalPrice);
   const [checked, setCheked] = useState(false);
@@ -106,11 +110,17 @@ const CartOrder: React.FC = () => {
         </p>
       )}
       <button
+        className=" disabled:text-color-orange disabled:bg-color-disabled bg-color-orange hover:opacity-80 text-white active:scale-95 transition duration-150 mt-4 py-4 rounded w-full text-base md:text-2xl"
         disabled={finalPrice < 1000}
-        className=" disabled:text-color-orange disabled:bg-color-disabled bg-color-orange hover:opacity-80 text-white active:scale-95 transition duration-150 mt-4 py-4 rounded w-full  text-2xl"
+        onClick={() => setIsDelivery(true)}
       >
-        Оформить заказ
+        {isDelivery ? "Оплатить на сайте" : "Оформить заказ"}
       </button>
+      {isDelivery && (
+        <button className=" bg-color-green hover:opacity-80 text-white active:scale-95 transition duration-150 mt-4 py-2 rounded w-full text-base ">
+          Оплатить при получении
+        </button>
+      )}
     </div>
   );
 };

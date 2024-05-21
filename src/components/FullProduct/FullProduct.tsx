@@ -31,20 +31,26 @@ const FullProduct: React.FC = () => {
   const pathname = usePathname();
   const dispatch: AppDispatch = useDispatch();
   useEffect(() => {
-    axios
-      .get(`https://3275c8b28b1eb9d3.mokky.dev/products?id=${product.product}`)
-      .then(({ data }) => {
-        setData(data);
-        setLoading(false);
+    try {
+      axios
+        .get(
+          `https://3275c8b28b1eb9d3.mokky.dev/products?id=${product.product}`
+        )
+        .then(({ data }) => {
+          setData(data);
+          setLoading(false);
+        });
+      dispatch(fetchProducts());
+      const path = pathname.split("/");
+      catalogData.map((item) => {
+        if (item.link === `/${path[1]}/${path[2]}`) {
+          setTitle(item.title);
+          setLink(item.link);
+        }
       });
-    dispatch(fetchProducts());
-    const path = pathname.split("/");
-    catalogData.map((item) => {
-      if (item.link === `/${path[1]}/${path[2]}`) {
-        setTitle(item.title);
-        setLink(item.link);
-      }
-    });
+    } catch (error) {
+      console.log(error);
+    }
   }, []);
 
   return (

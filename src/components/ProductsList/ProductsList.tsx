@@ -10,6 +10,7 @@ export type ProductsListProps = {
   items: ProductProps[];
   linkText: string;
   isLoading: boolean;
+  isError: boolean;
 };
 
 const ProductsList: React.FC<ProductsListProps> = ({
@@ -18,6 +19,7 @@ const ProductsList: React.FC<ProductsListProps> = ({
   items = [],
   linkText,
   isLoading,
+  isError,
 }) => {
   return (
     <section>
@@ -32,17 +34,21 @@ const ProductsList: React.FC<ProductsListProps> = ({
         </Link>
       </div>
       <div className="mt-10 grid grid-cols-2  md:flex justify-center lg:justify-between lg:flex-nowrap  gap-3 ">
-        {isLoading
-          ? [...new Array(4)].map((_, index) => (
-              <Skeleton
-                key={index}
-                height={349}
-                variant="rectangular"
-                sx={{ width: "100%" }}
-                className="w-full"
-              />
-            ))
-          : items.map((product) => <Product key={product.id} {...product} />)}
+        {isError ? (
+          <p className="text-center font-bold">Похоже, при получении данных произошла ошибка!</p>
+        ) : isLoading ? (
+          [...new Array(4)].map((_, index) => (
+            <Skeleton
+              key={index}
+              height={349}
+              variant="rectangular"
+              sx={{ width: "100%" }}
+              className="w-full"
+            />
+          ))
+        ) : (
+          items.map((product) => <Product key={product.id} {...product} />)
+        )}
       </div>
     </section>
   );

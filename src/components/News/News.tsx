@@ -6,14 +6,17 @@ const News: React.FC<{ items: ProductProps[]; status: string }> = ({
   items,
   status,
 }) => {
+  const itemsWithErrorsCheck =
+    status === "error" || !items ? [] : items.slice(4, 8);
   return (
     <div className="container mt-28">
       <ProductsList
+        isError={status === "error" || !items}
         isLoading={status === "loading"}
         title="Новинки"
         link="/catalog"
         linkText="Все новинки"
-        items={items.slice(4, 8)}
+        items={itemsWithErrorsCheck}
       />
     </div>
   );

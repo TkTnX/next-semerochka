@@ -90,7 +90,6 @@ const CategoryItems: React.FC = () => {
     }
   }
 
-  console.log(data);
 
   const theme = createTheme({
     // @ts-ignore

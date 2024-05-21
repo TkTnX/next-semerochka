@@ -1,19 +1,19 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-
 import catalogImg from "./images/catalog.svg";
-
 import favoriteImg from "./images/favorite.svg";
-
 import ordersImg from "./images/order.svg";
-
 import cartImg from "./images/cart.svg";
 import Link from "next/link";
 import { Avatar, Badge, Stack } from "@mui/material";
+import { useSelector } from "react-redux";
+import { cartItemsSelector } from "@/redux/slices/cart";
 
 const MobileMenu: React.FC = () => {
   const [isAtBottom, setIsAtBottom] = useState(false);
+  const [openMenu, setOpenMenu] = useState(false);
+  const cartItems = useSelector(cartItemsSelector);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,7 +31,7 @@ const MobileMenu: React.FC = () => {
       }`}
     >
       <nav className="max-w-max mx-auto">
-        <ul className="flex items-center gap-9">
+        <ul className="flex items-center gap-9 relative">
           <li>
             <Link href="/catalog">
               <Image src={catalogImg} className="w-auto h-auto" alt="Каталог" />
@@ -56,7 +56,7 @@ const MobileMenu: React.FC = () => {
               <Stack>
                 <Badge
                   sx={{ display: "grid", gap: "8px" }}
-                  badgeContent={1}
+                  badgeContent={cartItems.length}
                   color="success"
                 >
                   <Image
@@ -69,9 +69,9 @@ const MobileMenu: React.FC = () => {
             </Link>
           </li>
           <li>
-            <Link href="/catalog">
+            <button onClick={() => setOpenMenu(!openMenu)}>
               <Avatar>Г</Avatar>
-            </Link>
+            </button>
           </li>
         </ul>
       </nav>

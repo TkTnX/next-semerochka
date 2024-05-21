@@ -26,36 +26,41 @@ const cartReducer = createSlice({
         findItem.count += 1;
       }
       state.totalPrice = state.items.reduce((acc, item) => {
-        return acc + item.price * item.count;
+        const itemTotalPrice = item.discount
+          ? item.price * Number(`0.${item.discount}`) * item.count
+          : item.price * item.count;
+        return acc + itemTotalPrice;
       }, 0);
     },
     plusItem: (state, action) => {
       const findItem = state.items.find((item) => item.id === action.payload);
-
       if (findItem) {
-        findItem.count = findItem.count + 1;
+        findItem.count += 1;
       }
       state.totalPrice = state.items.reduce((acc, item) => {
-        return (acc + item.price) * item.count;
+        const itemTotalPrice = item.discount
+          ? item.price * Number(`0.${item.discount}`) * item.count
+          : item.price * item.count;
+        return acc + itemTotalPrice;
       }, 0);
     },
     minusItem: (state, action) => {
       const findItem = state.items.find((item) => item.id === action.payload);
-
       if (findItem) {
         if (findItem.count === 1) {
-          confirm("Вы уверены, что хотите удалить товар?") &&
-            (state.items = state.items.filter(
-              (item) => item.id !== findItem.id
-            ));
+          if (confirm("Вы уверены, что хотите удалить товар?")) {
+            state.items = state.items.filter((item) => item.id !== findItem.id);
+          }
         } else {
           findItem.count -= 1;
         }
-
-        state.totalPrice = state.items.reduce((acc, item) => {
-          return (item.price + acc) * item.count;
-        }, 0);
       }
+      state.totalPrice = state.items.reduce((acc, item) => {
+        const itemTotalPrice = item.discount
+          ? item.price * Number(`0.${item.discount}`) * item.count
+          : item.price * item.count;
+        return acc + itemTotalPrice;
+      }, 0);
     },
   },
 });

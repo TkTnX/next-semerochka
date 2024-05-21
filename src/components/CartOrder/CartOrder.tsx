@@ -1,8 +1,9 @@
+"use client";
 import { cartItemsSelector } from "@/redux/slices/cart";
 import { RootState } from "@/redux/store";
 import { convertPrice } from "@/utils/convert-price";
 import { Divider, FormControlLabel, Switch, styled } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 const IOSSwitch = styled((props) => (
@@ -59,16 +60,29 @@ const IOSSwitch = styled((props) => (
 const CartOrder: React.FC = () => {
   const cartItems = useSelector(cartItemsSelector);
   const totalPrice = useSelector((state: RootState) => state.cart.totalPrice);
-
-
-
+  const [checked, setCheked] = useState(false);
+  const checkedPrice = totalPrice > 201;
+  const finalPrice = checked
+    ? totalPrice - totalPrice * 0.1 - 200
+    : totalPrice - totalPrice * 0.1;
   return (
     <div className="w-full sm:w-72">
       <div className="flex items-center max-w-64">
-        <FormControlLabel control={<IOSSwitch sx={{ m: 1 }} />} label="" />
-        <p className="w-full">Списать 200&nbsp;₽ </p>
+        {checkedPrice && (
+          <>
+            {" "}
+            <FormControlLabel
+              value={checked}
+              // @ts-ignore
+              onChange={(e) => setCheked(e.target.checked)}
+              control={<IOSSwitch sx={{ m: 1 }} />}
+              label=""
+            />
+            <p className="w-full">Списать 200&nbsp;₽ </p>
+          </>
+        )}
       </div>
-      <p className=" text-gray-400 mt-5 pb-6">На карте накоплено 200&nbsp;₽</p>
+      <p className=" text-gray-400 mt-5 pb-6"> На карте накоплено 200&nbsp;₽</p>
       <Divider />
 
       <div className=" mt-6 pb-6">
@@ -84,17 +98,15 @@ const CartOrder: React.FC = () => {
       <Divider />
       <div className="flex justify-between mt-6">
         <p className="text-gray-400">Итог</p>
-        <h6 className="font-bold text-2xl">
-          {convertPrice(totalPrice - totalPrice * 0.1)}
-        </h6>
+        <h6 className="font-bold text-2xl">{convertPrice(finalPrice)}</h6>
       </div>
-      {totalPrice < 1000 && (
+      {finalPrice < 1000 && (
         <p className=" bg-red-700 text-white py-1 px-2 text-xs rounded mt-6">
           Минимальная сумма заказа 1000р
         </p>
       )}
       <button
-        disabled={totalPrice < 1000}
+        disabled={finalPrice < 1000}
         className=" disabled:text-color-orange disabled:bg-color-disabled bg-color-orange hover:opacity-80 text-white active:scale-95 transition duration-150 mt-4 py-4 rounded w-full  text-2xl"
       >
         Оформить заказ

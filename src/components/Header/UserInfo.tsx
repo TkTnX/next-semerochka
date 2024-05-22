@@ -7,6 +7,7 @@ import { MenuButton } from "@mui/base/MenuButton";
 import Login from "../Login/Login";
 import { useSession, signOut } from "next-auth/react";
 import { Session } from "next-auth";
+import Link from "next/link";
 const UserInfo: React.FC = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const { data }: { data: Session | null } = useSession();
@@ -53,8 +54,10 @@ const UserInfo: React.FC = () => {
             </MenuItem>
           ) : (
             <>
+              <MenuItem>
+                <Link href="/profile">Профиль</Link>
+              </MenuItem>
               <MenuItem onClick={() => signOut()}>Выйти из аккаунта</MenuItem>
-              <MenuItem>Профиль</MenuItem>
             </>
           )}
         </Menu>

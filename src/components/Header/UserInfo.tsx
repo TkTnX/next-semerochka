@@ -5,8 +5,11 @@ import { Dropdown } from "@mui/base/Dropdown";
 import { Menu } from "@mui/base/Menu";
 import { MenuButton } from "@mui/base/MenuButton";
 import Login from "../Login/Login";
+import { useSession, signOut } from "next-auth/react";
+import { Session } from "next-auth";
 const UserInfo: React.FC = () => {
   const [openMenu, setOpenMenu] = useState(false);
+  const { data }: { data: Session | null } = useSession();
 
   return (
     <>
@@ -15,7 +18,17 @@ const UserInfo: React.FC = () => {
           className="hidden md:flex items-center gap-2 hover:opacity-80 transition duration-100"
           // @ts-ignore
         >
-          <Avatar>Г</Avatar>
+          <Avatar>
+            {data?.user && data?.user.image ? (
+              <img
+                className="w-auto h-auto"
+                src={data.user.image}
+                alt={data.user.name ?? "user avatar"}
+              />
+            ) : (
+              data?.user?.name?.charAt(0)
+            )}
+          </Avatar>
           <Typography
             className="hidden xl:block "
             sx={{
@@ -24,7 +37,7 @@ const UserInfo: React.FC = () => {
               color: "#232323",
             }}
           >
-            Гость
+            {data ? data.user?.name : "Гость"}
           </Typography>
           <ChevronDown
             className={`hidden lg:block ${
@@ -34,11 +47,16 @@ const UserInfo: React.FC = () => {
           />
         </MenuButton>
         <Menu className="bg-white mt-5 hidden md:block  ">
-          <MenuItem onClick={() => setOpenMenu(!openMenu)}>
-            Войти в аккаунт
-          </MenuItem>
-          <MenuItem>Профиль</MenuItem>
-          <MenuItem>Выйти из аккаунта</MenuItem>
+          {!data ? (
+            <MenuItem onClick={() => setOpenMenu(!openMenu)}>
+              Войти в аккаунт
+            </MenuItem>
+          ) : (
+            <>
+              <MenuItem onClick={() => signOut()}>Выйти из аккаунта</MenuItem>
+              <MenuItem>Профиль</MenuItem>
+            </>
+          )}
         </Menu>
       </Dropdown>
       {openMenu && <Login openMenu={openMenu} setOpenMenu={setOpenMenu} />}

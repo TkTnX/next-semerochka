@@ -2,6 +2,8 @@ import { DialogTitle } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import { CircleX } from "lucide-react";
 import React from "react";
+import GithubButton from "../Login/GithubButton";
+import { signIn } from "next-auth/react";
 
 const AccountForm: React.FC<{
   setOpenMenu: (bo: boolean) => void;
@@ -9,6 +11,26 @@ const AccountForm: React.FC<{
   isLogin: boolean;
   setIsLogin: (val: boolean) => void;
 }> = ({ setOpenMenu, openMenu, isLogin, setIsLogin }) => {
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (
+    event
+  ) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+
+    const res = await signIn("credentials", {
+      phoneNumber: formData.get("phoneNumber"),
+      redirect: false,
+    });
+
+    if (res && !res.error) {
+      setOpenMenu(false);
+    } else {
+      console.log(res);
+      alert("Не удалось войти в акканут!");
+    }
+  };
+
   return (
     <div>
       <Dialog onClose={() => setOpenMenu(false)} open={openMenu}>
@@ -28,11 +50,16 @@ const AccountForm: React.FC<{
         >
           {isLogin ? "Вход" : "Регистрация"}
         </DialogTitle>
-        <form className="grid gap-8 p-5 sm:px-20 sm:pb-10">
+        <form
+          onSubmit={(event) => handleSubmit(event)}
+          className="grid gap-8 p-5 sm:px-20 sm:pb-10"
+        >
+          <GithubButton />
           {!isLogin && (
             <label className="grid text-lg text-gray-400">
               Имя
               <input
+                name="fullName"
                 className="text-black text-2xl w-full md:w-auto border  focus-visible:border-color-green py-3 px-4 rounded"
                 placeholder="Иван Иванов"
                 type="text"
@@ -42,6 +69,7 @@ const AccountForm: React.FC<{
           <label className="grid text-lg text-gray-400">
             Телефон
             <input
+              name="phoneNumber"
               className="text-black text-2xl w-full md:w-auto border  focus-visible:border-color-green py-3 px-4 rounded"
               placeholder="+7(999)999-99-99"
               type="tel"

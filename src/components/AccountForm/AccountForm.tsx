@@ -4,13 +4,15 @@ import { CircleX } from "lucide-react";
 import React from "react";
 import GithubButton from "../Login/GithubButton";
 import { signIn } from "next-auth/react";
+import { useDispatch } from "react-redux";
+import { userInfoDropdownChange } from "@/redux/slices/modals";
 
 const AccountForm: React.FC<{
-  setOpenMenu: (bo: boolean) => void;
   openMenu: boolean;
   isLogin: boolean;
   setIsLogin: (val: boolean) => void;
-}> = ({ setOpenMenu, openMenu, isLogin, setIsLogin }) => {
+}> = ({ openMenu, isLogin, setIsLogin }) => {
+  const dispatch = useDispatch()
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (
     event
   ) => {
@@ -24,7 +26,7 @@ const AccountForm: React.FC<{
     });
 
     if (res && !res.error) {
-      setOpenMenu(false);
+      dispatch(userInfoDropdownChange(false));
     } else {
       console.log(res);
       alert("Не удалось войти в акканут!");
@@ -33,9 +35,12 @@ const AccountForm: React.FC<{
 
   return (
     <div>
-      <Dialog onClose={() => setOpenMenu(false)} open={openMenu}>
+      <Dialog
+        onClose={() => dispatch(userInfoDropdownChange(false))}
+        open={openMenu}
+      >
         <button
-          onClick={() => setOpenMenu(false)}
+          onClick={() => dispatch(userInfoDropdownChange(false))}
           className="absolute right-2 top-2"
         >
           <CircleX />

@@ -8,8 +8,12 @@ import Login from "../Login/Login";
 import { useSession, signOut } from "next-auth/react";
 import { Session } from "next-auth";
 import Link from "next/link";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/redux/store";
+import { openMenuSelector, userInfoDropdownChange } from "@/redux/slices/modals";
 const UserInfo: React.FC = () => {
-  const [openMenu, setOpenMenu] = useState(false);
+  const openMenu = useSelector(openMenuSelector);
+  const dispatch: AppDispatch = useDispatch();
   const { data }: { data: Session | null } = useSession();
 
   return (
@@ -49,7 +53,11 @@ const UserInfo: React.FC = () => {
         </MenuButton>
         <Menu className="bg-white mt-5 hidden md:block  ">
           {!data ? (
-            <MenuItem onClick={() => setOpenMenu(!openMenu)}>
+            <MenuItem
+              onClick={() =>
+                dispatch(userInfoDropdownChange(!openMenuSelector))
+              }
+            >
               Войти в аккаунт
             </MenuItem>
           ) : (
@@ -62,7 +70,7 @@ const UserInfo: React.FC = () => {
           )}
         </Menu>
       </Dropdown>
-      {openMenu && <Login openMenu={openMenu} setOpenMenu={setOpenMenu} />}
+      {openMenu && <Login openMenu={openMenu} />}
     </>
   );
 };

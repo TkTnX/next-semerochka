@@ -52,7 +52,7 @@ const Cart: React.FC = () => {
             ))}
           </ul>
         )}
-        {cartItems.length === 0 && <CartOrder isDelivery={isDelivery} setIsDelivery={setIsDelivery} />}
+        {cartItems.length !== 0 && <CartOrder isDelivery={isDelivery} setIsDelivery={setIsDelivery} />}
       </div>
     </>
   );

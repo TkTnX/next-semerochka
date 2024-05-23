@@ -7,13 +7,22 @@ import ordersImg from "./images/order.svg";
 import cartImg from "./images/cart.svg";
 import Link from "next/link";
 import { Avatar, Badge, Stack } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { cartItemsSelector } from "@/redux/slices/cart";
+import { useSession } from "next-auth/react";
+import { Session } from "next-auth";
+import {
+  openMenuSelector,
+  userInfoDropdownChange,
+} from "@/redux/slices/modals";
+import { AppDispatch } from "@/redux/store";
 
 const MobileMenu: React.FC = () => {
   const [isAtBottom, setIsAtBottom] = useState(false);
-  const [openMenu, setOpenMenu] = useState(false);
   const cartItems = useSelector(cartItemsSelector);
+  const openMenu = useSelector(openMenuSelector);
+  const dispatch: AppDispatch = useDispatch();
+  const { data }: { data: Session | null } = useSession();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -69,9 +78,21 @@ const MobileMenu: React.FC = () => {
             </Link>
           </li>
           <li>
-            <button onClick={() => setOpenMenu(!openMenu)}>
-              <Avatar>Г</Avatar>
-            </button>
+            {data?.user ? (
+              <Link href="/profile">
+                <Avatar>
+                  {data && data.user.image ? (
+                    <img src={data.user?.image!} alt={data.user?.name!} />
+                  ) : (
+                    <p>{data.user?.name?.charAt(0)}</p>
+                  )}
+                </Avatar>
+              </Link>
+            ) : (
+              <button onClick={() => dispatch(userInfoDropdownChange(true))}>
+                <Avatar>Г</Avatar>
+              </button>
+            )}
           </li>
         </ul>
       </nav>

@@ -38,7 +38,7 @@ const Profile: React.FC = () => {
           alt={user?.name !== null ? user?.name : "Имя не найдено"}
         />
         <div className="grid">
-          <h4 className="text-5xl font-semibold">{user?.name}</h4>
+          <h4 className="text-2xl  md:text-5xl font-semibold">{user?.name}</h4>
           <button
             className="border rounded px-3 py-1 border-color-orange hover:bg-color-orange hover:text-white transition duration-150"
             onClick={() => signOut({ callbackUrl: "/" })}

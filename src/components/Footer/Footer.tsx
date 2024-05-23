@@ -25,17 +25,23 @@ const Footer: React.FC = () => {
           <nav>
             <ul className="flex justify-center md:justify-start items-center gap-x-10 gap-y-2 flex-wrap">
               <li>
-                <Link href="/about" className=" text-xs font-normal hover:opacity-80 ">
+                <Link
+                  href="/about"
+                  className=" text-xs font-normal hover:opacity-80 "
+                >
                   О компании
                 </Link>
               </li>
               <li>
-                <a href="#!" className=" text-xs font-normal hover:opacity-80 ">
+                <a
+                  href="/contacts"
+                  className=" text-xs font-normal hover:opacity-80 "
+                >
                   Контакты
                 </a>
               </li>
               <li>
-                <a href="#!" className=" text-xs font-normal hover:opacity-80 ">
+                <a href="/vacancy" className=" text-xs font-normal hover:opacity-80 ">
                   Вакансии
                 </a>
               </li>
